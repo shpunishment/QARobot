@@ -1,11 +1,18 @@
 package com.shpun.qarobot;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 
@@ -18,6 +25,8 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
     private static final String TAG = "MsgAdapter";
 
     private List<Msg> mMsgList;
+
+    private Context mContext;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -44,6 +53,9 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(mContext==null){
+            mContext=parent.getContext();
+        }
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_item,parent,false);
         return new ViewHolder(view);
     }
@@ -51,7 +63,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Msg msg=mMsgList.get(position);
+        final Msg msg=mMsgList.get(position);
         if(msg.getType()==Msg.TYPE_RECEIVED){
             holder.leftLayout.setVisibility(View.VISIBLE);
             holder.rightLayout.setVisibility(View.GONE);
@@ -65,6 +77,24 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
 
             holder.time.setText(msg.getTime());
             holder.time.setVisibility(View.VISIBLE);
+        }
+
+        if(msg.getImageUrl()!=null){
+            holder.leftLayout.setVisibility(View.VISIBLE);
+            holder.rightLayout.setVisibility(View.GONE);
+            holder.leftText.setText(msg.getImageUrl());
+
+            holder.leftText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext,WebActivity.class);
+                    intent.putExtra("url",msg.getImageUrl());
+                    mContext.startActivity(intent);
+                }
+            });
+
+
+
         }
 
     }

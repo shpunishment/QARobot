@@ -30,7 +30,7 @@
 
             />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/left_image"
@@ -47,7 +47,7 @@
                 android:gravity="center"
                 />
 
-        </LinearLayout>
+        </FrameLayout>
 
     </RelativeLayout>
 

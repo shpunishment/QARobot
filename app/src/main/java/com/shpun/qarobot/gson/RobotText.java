@@ -8,5 +8,6 @@ public class RobotText {
 
     public String code;
     public String text;
+    public String url;
 
 }

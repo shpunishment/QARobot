@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String content=inputText.getText().toString();
                 if(!"".equals(content)){
-                    Msg msg=new Msg(content,Msg.TYPE_SEND,getTime(),System.currentTimeMillis());
+                    Msg msg=new Msg(content,Msg.TYPE_SEND,getTime(),null,System.currentTimeMillis());
                     msgList.add(msg);
                     adapter.notifyItemInserted(msgList.size()-1);
                     msgRecyclerView.scrollToPosition(msgList.size()-1);
@@ -106,11 +106,14 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseText=response.body().string();
                 final RobotText robotText=Utility.handleResponseJSON(responseText);
+
+                LogUtil.d(TAG,"url : "+robotText.url);
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if(robotText!=null){
-                            Msg msg=new Msg(robotText.text,Msg.TYPE_RECEIVED,getTime(),System.currentTimeMillis());
+                            Msg msg=new Msg(robotText.text,Msg.TYPE_RECEIVED,getTime(), robotText.url,System.currentTimeMillis());
                             msgList.add(msg);
                             adapter.notifyItemInserted(msgList.size()-1);
                             msgRecyclerView.scrollToPosition(msgList.size()-1);
