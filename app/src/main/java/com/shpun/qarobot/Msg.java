@@ -12,7 +12,7 @@ public class Msg {
     private String content;
     private int type;
     private String time;
-    private String imageUrl;
+    private String url;
     private long timeMills;
 
     public Msg(String content,int type,String time,String imageUrl,long timeMills){
@@ -20,7 +20,7 @@ public class Msg {
         this.type=type;
         this.time=time;
         this.timeMills=timeMills;
-        this.imageUrl=imageUrl;
+        this.url=imageUrl;
     }
 
 
@@ -40,7 +40,7 @@ public class Msg {
         return timeMills;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getUrl() {
+        return url;
     }
 }

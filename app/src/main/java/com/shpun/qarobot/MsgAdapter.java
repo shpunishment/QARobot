@@ -2,6 +2,7 @@ package com.shpun.qarobot;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.shpun.qarobot.log.LogUtil;
 
 import java.util.List;
 
@@ -79,21 +81,19 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
             holder.time.setVisibility(View.VISIBLE);
         }
 
-        if(msg.getImageUrl()!=null){
-            holder.leftLayout.setVisibility(View.VISIBLE);
-            holder.rightLayout.setVisibility(View.GONE);
-            holder.leftText.setText(msg.getImageUrl());
+        if(msg.getUrl()!=null){
+            //String leftText=holder.leftText.getText().toString();
+            //holder.leftText.setTextColor(Color.parseColor("#00ffcc"));
+            //holder.leftText.setText(leftText+msg.getUrl());
 
             holder.leftText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(mContext,WebActivity.class);
-                    intent.putExtra("url",msg.getImageUrl());
+                    intent.putExtra("url",msg.getUrl());
                     mContext.startActivity(intent);
                 }
             });
-
-
 
         }
 

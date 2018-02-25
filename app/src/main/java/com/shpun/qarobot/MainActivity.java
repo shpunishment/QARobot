@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.shpun.qarobot.Util.HttpUtil;
 import com.shpun.qarobot.Util.Utility;
 import com.shpun.qarobot.gson.RobotText;
+import com.shpun.qarobot.gson.newsList;
 import com.shpun.qarobot.log.LogUtil;
 
 import java.io.IOException;
@@ -113,6 +114,19 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if(robotText!=null){
+                            if(robotText.newsLists!=null){
+                                for(newsList news:robotText.newsLists){
+                                    //LogUtil.d(TAG,"newsLists  article: "+news.article);
+                                    //LogUtil.d(TAG,"newsLists  detailurl: "+news.detailurl);
+
+                                    Msg msg=new Msg(news.article,Msg.TYPE_RECEIVED,getTime(), news.detailurl,System.currentTimeMillis());
+
+                                    //LogUtil.d(TAG,"msg :  "+msg.getUrl());
+
+                                    msgList.add(msg);
+                                }
+                            }
+
                             Msg msg=new Msg(robotText.text,Msg.TYPE_RECEIVED,getTime(), robotText.url,System.currentTimeMillis());
                             msgList.add(msg);
                             adapter.notifyItemInserted(msgList.size()-1);
@@ -129,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     private String getTime(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
         String dateString = simpleDateFormat.format(new Date());
-        LogUtil.d(TAG,"time: "+dateString);
+        //LogUtil.d(TAG,"time: "+dateString);
         return dateString;
     }
 
